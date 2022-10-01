@@ -1,0 +1,9 @@
+<h1>Your Listings</h1>
+<h4><%= link_to "Create new listing", new_host_listing_path %></h4>
+
+<% @listings.each do |l| %>
+    <%=  link_to l.title, host_listing_path(l) %>
+    <%= l.status %>
+    <%= button_to "delete", host_listing_path(l), method: :delete %>
+<% end %>
+
