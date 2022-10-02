@@ -45,7 +45,7 @@ class Host::ListingsController < ApplicationController
   private
 
   def listing_params
-    params.require(:listing).permit(:title, :about, :max_guests, :address_1, :address_2, :city, :state, :postal_code, :country)
+    params.require(:listing).permit(:title, :about, :max_guests, :address_line1, :address_2, :city, :state, :postal_code, :country, :lat, :lng)
   end
   def listing_update_params
     params.require(:listing).permit(:title, :about, :max_guests)

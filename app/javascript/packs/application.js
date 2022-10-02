@@ -14,5 +14,8 @@ Turbolinks.start()
 ActiveStorage.start()
 
 window.initMap = () => {
-    console.log("Map")
+    console.log("initMap called")
+
+    const event = new Event('google-maps-callback')
+    window.dispatchEvent(event)
 }
