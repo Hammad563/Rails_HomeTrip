@@ -13,5 +13,12 @@
 <label for="max_guests">Max Guests</label>
 <input type="number" name="listing[max_guests]" value="<%= @listing.max_guests %>"  min="1" max="100" step="1"/>
 
+<label for="status">Status</label>
+<select name="listing[status]">
+        <% Listing.statuses.keys.each do |status| %>
+            <option <%= 'selected' if @listing.status == status %> > <%= status %></option>
+        <% end %>
+</select>
+
  <input type="submit" value="Update"/>
 </form>

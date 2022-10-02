@@ -1,6 +1,11 @@
-<h1><%= @listing.title %></h1>
+<h1 class="text-2xl font-bold mb-4" ><%= @listing.title %></h1>
 
-<%= link_to "Edit", edit_host_listing_path(@listing) %>
+<%= link_to "Edit Details", edit_host_listing_path(@listing), class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-1 rounded-full' %>
+<%= link_to "Edit Rooms", host_listing_rooms_path(@listing), class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-1 rounded-full' %>
+
+
+
 <%= @listing.to_json %>
+<%= link_to "Back to your listings", host_listings_path, class: 'bg-blue-200 hover:bg-blue-500 text-white font-bold py-1 px-1 rounded-full' %>
 
 

@@ -1,4 +1,5 @@
 class Host::ListingsController < ApplicationController
+  before_action :authenticate_user!
   def index
     @listings = current_user.listings.all
   end
@@ -45,9 +46,9 @@ class Host::ListingsController < ApplicationController
   private
 
   def listing_params
-    params.require(:listing).permit(:title, :about, :max_guests, :address_line1, :address_2, :city, :state, :postal_code, :country, :lat, :lng)
+    params.require(:listing).permit(:title, :about, :max_guests, :address_line1, :address_2, :city, :state, :postal_code, :country, :lat, :lng, :status)
   end
   def listing_update_params
-    params.require(:listing).permit(:title, :about, :max_guests)
+    params.require(:listing).permit(:title, :about, :max_guests, :status)
   end
 end
