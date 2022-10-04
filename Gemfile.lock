@@ -232,6 +232,7 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.1.0)
       railties (>= 6.0.0)
+    stripe (7.1.0)
     tailwindcss-rails (2.0.14-x64-mingw32)
       railties (>= 6.0.0)
     thor (1.2.1)
@@ -284,6 +285,7 @@ DEPENDENCIES
   rmagick
   sass-rails (>= 6)
   stimulus-rails (~> 1.1)
+  stripe
   tailwindcss-rails (~> 2.0)
   turbolinks (~> 5)
   tzinfo-data

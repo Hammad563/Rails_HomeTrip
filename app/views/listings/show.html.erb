@@ -1,5 +1,18 @@
 <h1 class="text-2xl font-bold mb-4"><%= @listing.title %></h1>
 
+<div>
+  Per night <%= number_to_currency(@listing.nighty_price / 100, precision: 0) %>
+</div>
+<div>
+  Cleaning fee <%= number_to_currency(@listing.cleaning_fee / 100, precision: 0) %>
+</div>
+
+<form action="/reservations" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="reservation[listing_id]" value="<%= @listing.id %>">
+  <input type="submit" value="Reserve"/>
+</form>
+
 
 <%= @listing.city %>, <%= @listing.state %>
 
