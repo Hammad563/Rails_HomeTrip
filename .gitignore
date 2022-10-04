@@ -28,7 +28,7 @@
 # ENV
 .env
 /config/environments/override_variables.rb
-
+/stripe.exe
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 

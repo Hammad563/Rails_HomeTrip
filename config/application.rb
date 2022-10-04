@@ -32,6 +32,9 @@ module HomeTrip
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    
+    # queue adapter for background jobs
+    config.active_job.queue_adapter = :resque
 
     # Don't generate system test files.
     config.generators.system_tests = nil

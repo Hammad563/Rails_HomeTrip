@@ -59,3 +59,4 @@ gem "tailwindcss-rails", "~> 2.0"
 gem 'image_processing', '~> 1.2'
 gem 'rmagick'
 gem 'stripe'
+gem 'resque'

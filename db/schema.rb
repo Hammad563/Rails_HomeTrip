@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_04_012142) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_04_042432) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,6 +48,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_04_012142) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_beds_on_room_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.text "request_body"
+    t.integer "status", default: 0
+    t.text "error_message"
+    t.string "source"
+    t.string "event_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "listings", force: :cascade do |t|
