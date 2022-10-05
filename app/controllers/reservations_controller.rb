@@ -8,52 +8,21 @@ class ReservationsController < ApplicationController
     @reservation = current_user.reservations.find(params[:id])
   end
 
-  def create
-    puts "#{reservation_params}"
-    @reservation = current_user.reservations.new(reservation_params)
-    if @reservation.save!
-      # create stripe checkout session
-      @listing = @reservation.listing
-      checkout_session = Stripe::Checkout::Session.create(
-        success_url: reservation_url(@reservation),
-        cancel_url: listing_url(@listing),
-        customer: current_user.stripe_customer,
-        mode: 'payment',
-        line_items: [{
-          price_data: {
-            unit_amount: @listing.nighty_price,
-            currency: 'cad',
-            product: @listing.stripe_product_id,
+  def new
+    @listing = Listing.find(params[:listing_id])
+    @calender_events = @listing.calender_events
+  end
 
-          },
-          quantity: 1 #num of nights
-        }, {
-          price_data: {
-            unit_amount: @listing.cleaning_fee,
-            currency: 'cad',
-            product: 'prod_MY6f6j7DAn6FCA' # cleaning fee product ID
-          },
-          quantity: 1
-        }],
-        metadata: {
-          reservation_id: @reservation.id
-        },
-        payment_intent_data: {
-          application_fee_amount: ((@listing.cleaning_fee + @listing.nighty_price) * 0.1).to_i,
-          transfer_data: {
-            destination: @listing.host.stripe_account_id
-          },
-          metadata: {
-            reservation_id: @reservation.id
-          }
-        }
-      )
-      @reservation.update(session_id: checkout_session.id )
-      redirect_to checkout_session.url
+  def create
+    @booking = BookListing.new(current_user, reservation_params)
+    if @booking.save
+      redirect_to @booking.checkout_url, allow_other_hosts: :true, status: :see_other
     else
-      # error
-      flash[:errors] = @reservation.errors.full_messages
-      redirect_to listing_path(params[:reservation][:listing_id])
+      flash.now[:errors] = @booking.errors
+      @listing = @booking.listing
+      @reservation = @booking.reservation
+      @calender_events = @listing.calender_events
+      render :new
     end
   end
 
@@ -67,11 +36,21 @@ class ReservationsController < ApplicationController
     redirect_to reservation_path(@reservation)
   end
 
+  def expire
+    @reservation = current_user.reservations.find(params[:id])
+
+    if @reservation.status != 'expired'
+      Stripe::Checkout::Session.expire(params[:session_id])
+    end
+    
+    redirect_to listings_path
+  end
+
 
   private
 
   def reservation_params
-    params.require(:reservation).permit(:listing_id)
+    params.require(:reservation).permit(:listing_id, :start_date, :end_date)
   end
 
 end

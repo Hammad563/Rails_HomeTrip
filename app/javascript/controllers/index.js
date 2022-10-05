@@ -10,5 +10,8 @@ application.register("address", AddressController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import MenuController from "./menu_controller"
+application.register("menu", MenuController)
+
 import RoomController from "./room_controller"
 application.register("room", RoomController)

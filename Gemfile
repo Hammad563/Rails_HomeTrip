@@ -60,3 +60,4 @@ gem 'image_processing', '~> 1.2'
 gem 'rmagick'
 gem 'stripe'
 gem 'resque'
+gem "validates_overlap", "~> 1.0"

@@ -12,7 +12,6 @@
   </head>
 
   <body>
-  <%= button_to "Log Out", destroy_user_session_path, method: :delete %>
   <div>
       <div class="bg-gray-800 pb-32">
         <nav data-controller="menu" class="bg-gray-800">
@@ -25,7 +24,9 @@
                   </div>
                   <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-          
+                        <% navigation_items.each do |item| %>
+                          <%= link_to(item[:body], item[:href], class: navigation_class(item[:href]), 'aria-current': navigation_aria(item[:href])) %>
+                        <% end %>
                     </div>
                   </div>
                 </div>
@@ -59,7 +60,7 @@
                         To: "transform opacity-0 scale-95"
                       -->
                       <div data-menu-target="desktopMenu"
-                        data-transition-enter="transition ease-out duration-100"
+                        data-transition-enter="transition ease-out duration-200"
                         data-transition-enter-start="transform opacity-0 scale-95"
                         data-transition-enter-end="transform opacity-100 scale-100"
                         data-transition-leave="transition ease-in duration-75"
@@ -156,6 +157,7 @@
           <!-- /End replace -->
         </div>
       </main>
+      hello
     </div>
   </body>
 </html>

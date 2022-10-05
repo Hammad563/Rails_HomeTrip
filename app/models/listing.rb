@@ -3,7 +3,7 @@ class Listing < ApplicationRecord
   has_many :rooms
   has_many :photos
   has_many :reservations
-
+  has_many :calender_events
   validates :title, presence: true
   enum status: [:draft, :published, :archived]
   validates :max_guests, numericality: {greater_than: 0, less_than: 100 }
