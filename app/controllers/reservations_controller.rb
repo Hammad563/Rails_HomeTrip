@@ -5,6 +5,7 @@ class ReservationsController < ApplicationController
   end
 
   def show
+    @reservation = current_user.reservations.find(params[:id])
   end
 
   def create
@@ -38,6 +39,10 @@ class ReservationsController < ApplicationController
           reservation_id: @reservation.id
         },
         payment_intent_data: {
+          application_fee_amount: ((@listing.cleaning_fee + @listing.nighty_price) * 0.1).to_i,
+          transfer_data: {
+            destination: @listing.host.stripe_account_id
+          },
           metadata: {
             reservation_id: @reservation.id
           }
@@ -50,6 +55,16 @@ class ReservationsController < ApplicationController
       flash[:errors] = @reservation.errors.full_messages
       redirect_to listing_path(params[:reservation][:listing_id])
     end
+  end
+
+  def cancel
+    @reservation = current_user.reservations.find(params[:id])
+    # refund payment
+    refund = Stripe::Refund.create({
+      payment_intent: @reservation.payment_intent_id
+    })
+    @reservation.update(stripe_refund_id: refund.id, status: :cancelling)
+    redirect_to reservation_path(@reservation)
   end
 
 

@@ -28,9 +28,26 @@ class EventJob < ApplicationJob
       if reservation.nil?
         raise "No reservation found, checkout_session_id: #{checkout_session.id}"
       end
+      reservation.update(status: :booked, payment_intent_id: checkout_session.payment_intent )
+    when "charge.refunded"
+      #refund
+      charge=  stripe_event.data.object
+      reservation = Reservation.find_by(payment_intent_id: charge.payment_intent)
 
-      reservation.update(status: :booked)
+      if reservation.nil?
+        raise "No reservation found, payment_intent: #{charge.payment_intent}"
+      end
+      reservation.update(status: :cancelled)
+    when "account.updated"
+      # stripe connect account
+      account = stripe_event.data.object
+      user = User.find_by(stripe_account_id: account.id)
+      if account.charges_enabled
+        user.update(charges_enabled: true)
+      end
     end
   end
+
+
 
 end

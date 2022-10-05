@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_04_042432) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_04_223920) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -97,6 +97,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_04_042432) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "payment_intent_id"
+    t.string "stripe_refund_id"
     t.index ["guest_id"], name: "index_reservations_on_guest_id"
     t.index ["listing_id"], name: "index_reservations_on_listing_id"
   end
@@ -133,6 +135,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_04_042432) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.string "stripe_customer"
+    t.boolean "is_host", default: false
+    t.string "stripe_account_id"
+    t.boolean "charges_enabled", default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid"

@@ -1,4 +1,10 @@
 <div>
-  <h1 class="font-bold text-4xl">Reservations#show</h1>
-  <p>Find me in app/views/reservations/show.html.erb</p>
+  <h1 class="text-2xl mb-4 font-bold">Reservation successfully <%= @reservation.status %> !</h1>
+  <p><%= @reservation.listing.title %></p>
+
+  <form action="<%= cancel_reservation_path(@reservation) %>" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="submit" value="Cancel">
+  </form>
+
 </div>

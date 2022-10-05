@@ -5,10 +5,20 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   resources :listings, only: [:index, :show]
-  resources :reservations
+  resources :reservations do
+    member do
+      post '/cancel' => 'reservations#cancel'
+    end
+  end
   post '/webhooks/:source' => 'webhooks#create'
 
   namespace :host do
+   resources :vendor_settings do
+    collection do 
+      get '/connect_stripe', to: 'vendor_settings#connect_stripe'
+      get '/connected', to: 'vendor_settings#connected'
+    end
+   end
    resources :listings do
     resources :photos, only: [:index, :create, :destroy] 
     resources :rooms, only: [:index, :create, :destroy]

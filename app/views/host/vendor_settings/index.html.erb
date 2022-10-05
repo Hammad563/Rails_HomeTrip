@@ -1,0 +1,17 @@
+<h1 class="text-xl font-semibold text-gray 700">Vendor Settings</h1>
+
+<% if current_user.stripe_account_id.blank? %>
+    <p class="text-gray-600">You have not connected your stripe account yet. </p>
+    <p class="text-gray-600">
+        <a href="/host/vendor_settings/connect_stripe">Connect your stripe account</a>
+    </p>
+<% else %>
+    <p>Stripe Account: <%= current_user.stripe_account_id %> </p>
+    <p>Charges enabled: <%= current_user.charges_enabled? ? 'Yes': 'No' %></p>
+<% end %>
+ <p class="text-gray-600">
+        <a href="/host/vendor_settings/connect_stripe">Connect your stripe account</a>
+    </p>
+
+
+
