@@ -7,7 +7,9 @@ class User < ApplicationRecord
 
   has_many :listings, foreign_key: :host_id
   has_many :reservations, foreign_key: :guest_id
-
+  has_many :host_reservations, class_name: 'Reservation', through: :listings, source: :reservations
+  has_many :notifications, as: :recipient, dependent: :destroy
+  
   after_commit :create_stripe_customer, on: [:create, :update]
 
   def self.from_omniauth(auth)

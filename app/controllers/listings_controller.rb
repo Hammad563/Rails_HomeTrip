@@ -1,6 +1,8 @@
 class ListingsController < ApplicationController
+  include Pagy::Backend
+
   def index
-    @listings = Listing.with_published
+    @pagy, @listings = pagy(Listing.with_published, items: 10)
   end
 
   def show

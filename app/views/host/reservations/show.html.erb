@@ -1,0 +1,8 @@
+<h1 class="font-bold text-4xl">Host Reservations</h1>
+<p><%= @reservation.listing.title %></p>
+<p><%= @reservation.guest.email %></p>
+
+  <form action="<%= cancel_reservation_path(@reservation) %>" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="submit" value="Cancel">
+  </form>

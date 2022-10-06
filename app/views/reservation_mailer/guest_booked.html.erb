@@ -1,0 +1,8 @@
+<h1>Your reservation has been booked!</h1>
+
+<p>
+  Hey <%= @reservation.guest.email %>,
+</p>
+
+<p>You have booked the property <%= @reservation.listing.title %> from <%= @reservation.start_date %> to <%= @reservation.end_date %></p>
+<p>Host: <%= @reservation.host.email %></p>

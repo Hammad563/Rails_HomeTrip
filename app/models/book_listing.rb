@@ -72,7 +72,6 @@ class BookListing
                     end_date: end_date
                 },
                 payment_intent_data: {
-                    application_fee_amount: ((listing.cleaning_fee + listing.nighty_price) * 0.1).to_i,
                     transfer_data: {
                         destination: listing.host.stripe_account_id
                     },

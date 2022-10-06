@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post '/webhooks/:source' => 'webhooks#create'
 
   namespace :host do
+    get 'reservations/show'
    resources :vendor_settings do
     collection do 
       get '/connect_stripe', to: 'vendor_settings#connect_stripe'
@@ -24,6 +25,7 @@ Rails.application.routes.draw do
     resources :photos, only: [:index, :create, :destroy] 
     resources :rooms, only: [:index, :create, :destroy]
    end
+   resources :reservations, only: [:show]
   end
 
   resque_web_constraint = lambda do |request|

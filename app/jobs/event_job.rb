@@ -29,6 +29,8 @@ class EventJob < ApplicationJob
         raise "No reservation found, checkout_session_id: #{checkout_session.id}"
       end
       reservation.update(status: :booked, payment_intent_id: checkout_session.payment_intent )
+      GuestBookedNotification.with(reservation: reservation).deliver_later(reservation.guest)
+      HostBookedNotification.with(reservation: reservation).deliver_later(reservation.host)
     when "checkout.session.expired"
       checkout_session = stripe_event.data.object
       reservation = Reservation.find_by(session_id: checkout_session.id)
