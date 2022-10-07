@@ -1,0 +1,50 @@
+<!-- Product info -->
+    <div class="max-w-2xl mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+      <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+        <h1 class="text-1xl font-bold tracking-tight text-gray-900 sm:text-3xl">Entire rental unit hosted by <%= @listing.host.email %></h1>
+      </div>
+
+<!-- Options -->
+  <div 
+    class="mt-4 lg:mt-0 lg:row-span-3" 
+  >
+    <div class="mt-10 lg:mt-0">
+      <h2 class="text-2xl font-medium text-gray-900">$ <%= @listing.nighty_price / 100 %> per night</h2>
+     <h2 class="text-2xl font-medium text-gray-900">Max guests allowed is <%= @listing.max_guests %></h2>
+      <div class="bg-white mt-6">
+        <div class="divide-y divide-gray-200">
+        </div>
+        <dl class="space-y-6">
+          TODO
+        </dl>
+
+        <div class="pt-6">
+        <%= link_to "Reserve", new_reservation_path(listing_id: @listing.id), class: 'w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500' %>
+        </div>
+      </div>
+    </div>
+  </div>
+      
+
+      <div class="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+        <!-- Description and details -->
+        <div>
+          <h3 class="sr-only">Description</h3>
+
+          <div class="space-y-6">
+            <p class="text-base text-gray-900"><%= truncate @listing.about, length: 500 %></p>
+          </div>
+        </div>
+        <% if @listing.about.length > 500 %>
+              <%= link_to "Show more >", "", class: "text-lg font-medium underline", data: { action: "property#readDescription" } %>
+        <% end %>
+        <ul>
+        <p>Total Rooms: <%= @listing.rooms.count %> </p>
+        <% @listing.rooms.each do |room| %>
+            <li><%= room.room_type %> beds: <%= room.beds.count %></li>
+        <% end %>
+        </ul>
+      
+      </div>
+    </div>
+    <%= render "shared/modal", modal_trigger_id: "property-description-trigger", modal_content: "listings/property_description", content_params: { listing: @listing } %>

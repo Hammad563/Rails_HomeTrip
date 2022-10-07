@@ -10,11 +10,23 @@ application.register("address", AddressController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import ListingController from "./listing_controller"
+application.register("listing", ListingController)
+
 import ListingMapController from "./listing_map_controller"
 application.register("listing-map", ListingMapController)
 
 import MenuController from "./menu_controller"
 application.register("menu", MenuController)
 
+import ModalController from "./modal_controller"
+application.register("modal", ModalController)
+
 import RoomController from "./room_controller"
 application.register("room", RoomController)
+
+import ShareController from "./share_controller"
+application.register("share", ShareController)
+
+import ShareModalController from "./share_modal_controller"
+application.register("share-modal", ShareModalController)

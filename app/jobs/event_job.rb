@@ -57,7 +57,4 @@ class EventJob < ApplicationJob
       end
     end
   end
-
-
-
 end
