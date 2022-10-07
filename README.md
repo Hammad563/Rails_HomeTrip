@@ -1,24 +1,33 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version: 2.7.5
 
-* System dependencies
+Commands needed:
 
-* Configuration
+rails tailwindcss:watch
+rails s
+ruby ./bin/webpack-dev-server
+stripe listen --forward-to localhost:3000/webhooks/stripe
+stripe listen --forward-connect-to localhost:3000/webhooks/stripe
+bundle exec rake resque:work QUEUE="*"
 
-* Database creation
 
-* Database initialization
+STUFF TO DO:
 
-* How to run the test suite
+* Real-time in-app notifications
+* Profile pictures
+* Calender to show unavailable dates
+* Host to create availability
+* Profile settings
+* Geolocation to showcase how far a property is in KM
+* Favorite button
+* Review system
+* Search bar and filters using elasticSearch
+* real-time chat feature for host and guests
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
 
-* ...
