@@ -7,5 +7,6 @@ class ListingsController < ApplicationController
 
   def show
     @listing = Listing.with_published.find(params[:id])
+    @calender_events = @listing.calender_events
   end
 end

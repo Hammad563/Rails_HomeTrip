@@ -22,6 +22,9 @@ application.register("menu", MenuController)
 import ModalController from "./modal_controller"
 application.register("modal", ModalController)
 
+import ReservationController from "./reservation_controller"
+application.register("reservation", ReservationController)
+
 import RoomController from "./room_controller"
 application.register("room", RoomController)
 
